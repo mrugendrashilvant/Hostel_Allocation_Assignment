@@ -10,6 +10,7 @@ import {
   Link
 } from "react-router-dom";
 import Navbar from './components/Navbar';
+import ShowRooms from './components/ShowRooms';
 
 function App() {
   const [visible, setVisible] = React.useState(true);
@@ -39,6 +40,9 @@ function App() {
               </Route>
               <Route path="/girlsHostel">
                 <GirlsHostel />
+              </Route>
+              <Route path="/showrooms">
+                <ShowRooms  />
               </Route>
             </div>
           </Switch>
