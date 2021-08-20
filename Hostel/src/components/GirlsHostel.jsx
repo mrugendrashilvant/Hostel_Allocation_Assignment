@@ -10,20 +10,16 @@ export default function GirlsHostel() {
     return (
         <>
             <div className="container">
-                {visible ? (<div className="container">
+                <div className="container">
                     <p className="display-4">Choose a Building</p>
                     <div className="d-flex justify-content-around m-4">
                         {hostels.map((hostel) => {
                             return (
-                                <button type="submit" value={`G${hostel}`} onClick={() => { setVisible(false) }} key={hostel} className="btn btn-outline-primary col-2 flex-wrap btn-lg m-2"><Link to={`${match.url}/showrooms`}>{`G${hostel}`}</Link></button>
+                                <Link to={`/showrooms`}><button type="submit" value={`G${hostel}`} onClick={() => { setVisible(true) }} key={hostel} className="btn btn-outline-primary">{`G${hostel}`}</button></Link>
                             )
                         })}
                     </div>
-                </div>) : null}
-
-                {visible ? null : <ShowRooms />}
-                
-
+                </div>
             </div>
         </>
     )
