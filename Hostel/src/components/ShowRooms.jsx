@@ -21,41 +21,44 @@ export default function ShowRooms() {
         setAlert(true);
         console.log(e.target.value)
     }
+
+    React.useEffect(() => {
+        setVisible(true);
+    }, [])
     return (
-        <div className="container">
+        <>
+            {alert ? (
+                <div className="alert alert-success alert-dismissible fade show m-4" role="alert">
+                    <strong>Room Selected</strong> Room number - {room}
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            ) : null}
+            <div className="container">
 
-            {visible ? (
-                <>
-                    {alert ? (
-                        <div className="alert alert-success alert-dismissible fade show m-4" role="alert">
-                            <strong>Room Selected</strong> Room number - {room}
-                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {visible ? (
+                    <>
+                        <h1>Rooms here</h1>
+                        <select className="form-control" onChange={(e) => { setFloor(e.target.value) }}>
+                            {floors.map((floor, index) => {
+                                return (
+                                    <option key={floor} value={index + 1}>{floor}</option>
+                                )
+                            })}
+                        </select>
+                        <div className="container m-4">
+                            {rooms.map((room) => {
+                                return (
+                                    <button value={room} onClick={(key) => { setDetails(key) }} key={room} className="btn btn-outline-warning m-2">{room}</button>
+                                )
+                            })}
                         </div>
-                    ) : null}
+                        <Link to={`${match.url}/final`}><button disabled={book} onClick={() => { setVisible(false) }} className="btn btn-outline-success btn-lg">Book now</button></Link>
+                    </>) : null}
 
-                    <h1>Rooms here</h1>
-                    <select className="form-control" onChange={(e) => { setFloor(e.target.value) }}>
-                        {floors.map((floor, index) => {
-                            return (
-                                <option key={floor} value={index + 1}>{floor}</option>
-                            )
-                        })}
-                    </select>
-                    <div className="container m-4">
-                        {rooms.map((room) => {
-                            return (
-                                <button value={room} onClick={(key) => { setDetails(key) }} key={room} className="btn btn-outline-warning m-2">{room}</button>
-                            )
-                        })}
-                    </div>
-                    <button disabled={book} onClick={() => { setVisible(false) }} className="btn btn-outline-success btn-lg"><Link to={`${match.url}/final`}>Book now</Link></button>
-                </>) : null}
-
-            <Switch>
                 <Route path={`${match.path}/final`}>
                     <Display room={room} floor={floor} />
                 </Route>
-            </Switch>
-        </div>
+            </div>
+        </>
     )
 }
